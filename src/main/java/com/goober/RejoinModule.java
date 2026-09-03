@@ -3,9 +3,16 @@ package com.goober;
 import meteordevelopment.meteorclient.settings.IntSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.systems.modules.Module;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ServerInfo;
-import net.minecraft.text.Text;
+import net.minecraft.class_310;
+import net.minecraft.class_638;
+import net.minecraft.class_3222;
+import net.minecraft.class_2596;
+import net.minecraft.class_2680;
+import net.minecraft.class_3222;
+import net.minecraft.class_746;
+import net.minecraft.class_757;
+import net.minecraft.class_793;
+import net.minecraft.class_915;
 
 public class RejoinModule extends Module {
     private final Setting<Integer> delay = settings.getDefaultGroup().add(new IntSetting.Builder()
@@ -27,29 +34,29 @@ public class RejoinModule extends Module {
 
     @Override
     public void onActivate() {
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.getNetworkHandler() == null) {
+        class_310 client = class_310.method_1551();
+        if (client.field_1724 == null || client.field_1724.field_3944 == null) {
             error("Not connected to a server!");
             toggle();
             return;
         }
 
-        lastAddress = client.getNetworkHandler().getConnection().getAddress().toString();
+        lastAddress = client.field_1724.field_3944.method_44770().toString();
         reconnecting = true;
         reconnectTime = System.currentTimeMillis() + (delay.get() * 1000L);
-        client.getNetworkHandler().getConnection().disconnect(Text.literal("Reconnecting..."));
+        client.field_1724.field_3944.method_44769(new class_2680("Reconnecting..."));
     }
 
     @Override
     public void onTick() {
         if (!reconnecting) return;
 
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.getNetworkHandler() == null && System.currentTimeMillis() >= reconnectTime && lastAddress != null) {
+        class_310 client = class_310.method_1551();
+        if (client.field_1724 == null && System.currentTimeMillis() >= reconnectTime && lastAddress != null) {
             try {
-                client.world = null;
-                client.joinWorld(null);
-                client.method_27227(new ServerInfo(lastAddress, lastAddress, false));
+                client.field_1687 = null;
+                client.method_1572(null);
+                client.method_1634(new class_793(lastAddress, lastAddress, false));
                 info("Reconnected!");
             } catch (Exception e) {
                 error("Failed to reconnect: " + e.getMessage());
