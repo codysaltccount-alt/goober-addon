@@ -1,36 +1,15 @@
 {
   "schemaVersion": 1,
-  "id": "addon-template",
-  "version": "${version}",
-  "name": "Addon Template",
-  "description": "An addon template for Meteor Client addons.",
-  "authors": [
-    "seasnail"
-  ],
-  "contact": {
-    "sources": "https://github.com/MeteorDevelopment/meteor-addon-template"
-  },
-  "icon": "assets/template/icon.png",
-  "environment": "client",
+  "id": "goober",
+  "version": "1.0.0",
+  "name": "Goober v1",
+  "description": "Meteor Client addon with Rejoin and Admin Detector",
+  "authors": ["Goober"],
   "entrypoints": {
-    "meteor": [
-      "com.example.addon.AddonTemplate"
-    ]
-  },
-  "mixins": [
-    "addon-template.mixins.json"
-  ],
-  "custom": {
-    "meteor-client:color": "225,25,25",
-    "modmenu": {
-      "parent": {
-        "id": "meteor-client"
-      }
-    }
+    "meteor": ["com.goober.GooberAddon"]
   },
   "depends": {
-    "java": ">=${jdk_version}",
-    "minecraft": "${minecraft_version}",
-    "meteor-client": "*"
+    "minecraft": "1.21.11",
+    "meteor-client": ">=1.21.11-86"
   }
 }
