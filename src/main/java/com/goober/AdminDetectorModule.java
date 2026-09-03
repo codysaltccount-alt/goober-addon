@@ -30,14 +30,14 @@ public class AdminDetectorModule extends Module {
         for (var entry : mc.getNetworkHandler().getPlayerList()) {
             String name = entry.getProfile().getName();
             if (name == null || detected.contains(name)) continue;
-            
+
             String display = entry.getDisplayName() != null ? entry.getDisplayName().getString() : "";
-            
-            if (display.toLowerCase().contains("admin") || 
-                display.toLowerCase().contains("mod") || 
-                display.toLowerCase().contains("staff") || 
+
+            if (display.toLowerCase().contains("admin") ||
+                display.toLowerCase().contains("mod") ||
+                display.toLowerCase().contains("staff") ||
                 display.toLowerCase().contains("helper")) {
-                
+
                 detected.add(name);
                 if (notify.get()) {
                     ChatUtils.info("Staff detected: " + name);
