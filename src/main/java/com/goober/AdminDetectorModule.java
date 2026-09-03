@@ -7,9 +7,10 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.notifications.Notification;
 import meteordevelopment.meteorclient.systems.notifications.Notifications;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.text.Text;
+import net.minecraft.class_310;
+import net.minecraft.class_3222;
+import net.minecraft.class_746;
+import net.minecraft.class_2680;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,26 +31,26 @@ public class AdminDetectorModule extends Module {
 
     @EventHandler
     private void onTick(TickEvent.Post event) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.getNetworkHandler() == null) return;
+        class_310 client = class_310.method_1551();
+        if (client == null || client.field_1724 == null || client.field_1724.field_3944 == null) return;
 
-        for (PlayerListEntry entry : client.getNetworkHandler().getPlayerList()) {
-            String name = entry.getProfile().getName();
+        for (class_3222 entry : client.field_1724.field_3944.method_45527()) {
+            String name = entry.method_5477().getName();
             if (name == null || detectedPlayers.contains(name)) continue;
 
-            String displayName = entry.getDisplayName() != null ? entry.getDisplayName().getString() : "";
+            String displayName = entry.method_5477().getName();
 
-            if (isPotentialStaff(displayName, entry)) {
+            if (isPotentialStaff(displayName)) {
                 detectedPlayers.add(name);
                 if (notifyOnJoin.get()) {
                     String msg = "§6[Goober] §rPotential staff detected: §c" + name;
-                    Notifications.get().add(new Notification(Text.literal(msg), 5000));
+                    Notifications.get().add(new Notification(new class_2680(msg), 5000));
                 }
             }
         }
     }
 
-    private boolean isPotentialStaff(String display, PlayerListEntry entry) {
+    private boolean isPotentialStaff(String display) {
         String lower = display.toLowerCase();
         return lower.contains("admin") ||
                lower.contains("mod") ||
@@ -57,8 +58,7 @@ public class AdminDetectorModule extends Module {
                lower.contains("helper") ||
                lower.contains("owner") ||
                lower.contains("operator") ||
-               lower.contains("developer") ||
-               (entry.getGameMode() != null && entry.getGameMode().isCreative());
+               lower.contains("developer");
     }
 
     @Override
