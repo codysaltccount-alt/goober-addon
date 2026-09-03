@@ -3,7 +3,7 @@
   "id": "goober",
   "version": "1.0.0",
   "name": "Goober v1",
-  "description": "Meteor Client addon with Rejoin and Admin Detector",
+  "description": "Meteor Client addon",
   "authors": ["Goober"],
   "entrypoints": {
     "meteor": ["com.goober.GooberAddon"]
